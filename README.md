@@ -1,11 +1,11 @@
-# ✈️ Flight Pricing Analysis — Décrypter la stratégie tarifaire aérienne
+# Flight Pricing Analysis — Décrypter la stratégie tarifaire aérienne
 
 > **Pourquoi le même vol Paris → Madrid coûte 54€ un mardi matin et 310€ le vendredi soir ?**  
 > Ce projet analyse les mécanismes du pricing aérien à partir de ~300 000 billets réels pour en extraire des recommandations concrètes — pour les voyageurs comme pour les compagnies.
 
 ---
 
-## 🎯 Objectifs
+## Objectifs
 
 - Identifier les **facteurs clés** qui font varier le prix d'un billet
 - Quantifier l'impact de chaque variable : délai de réservation, escales, compagnie, jour de la semaine
@@ -14,7 +14,7 @@
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 **Source :** [Ease My Trip — Flight Price Prediction](https://www.kaggle.com/datasets/shubhambathwal/flight-price-prediction) (Kaggle)  
 **Volume :** ~300 000 billets de vols domestiques indiens (2022)  
@@ -35,7 +35,7 @@
 
 ---
 
-## 🗂️ Structure du projet
+## Structure du projet
 
 ```
 flight-pricing/
@@ -58,18 +58,18 @@ flight-pricing/
 
 ---
 
-## 🔍 Insights clés
+## Insights clés
 
 > *(à compléter après analyse)*
 
-- 📅 **Réserver X jours à l'avance** permet d'économiser en moyenne **XX%**
-- 🛑 **Les vols avec escale** sont XX% moins chers mais allongent le trajet de Xh en moyenne
-- 🌅 **Les vols du matin** sont systématiquement moins chers que les vols du soir
-- ✈️ **Les 3 facteurs les plus prédictifs** du prix : `days_left`, `class`, `stops`
+- **Réserver X jours à l'avance** permet d'économiser en moyenne **XX%**
+- **Les vols avec escale** sont XX% moins chers mais allongent le trajet de Xh en moyenne
+- **Les vols du matin** sont systématiquement moins chers que les vols du soir
+- **Les 3 facteurs les plus prédictifs** du prix : `days_left`, `class`, `stops`
 
 ---
 
-## 📈 Résultats du modèle
+## Résultats du modèle
 
 | Modèle | R² | RMSE |
 |--------|----|------|
@@ -78,7 +78,7 @@ flight-pricing/
 
 ---
 
-## 💡 Recommandations
+## Recommandations
 
 ### Pour les voyageurs
 1. **Réserver entre J-30 et J-45** pour le meilleur rapport qualité/prix
@@ -92,7 +92,7 @@ flight-pricing/
 
 ---
 
-## 🛠️ Stack technique
+## Stack technique
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![Pandas](https://img.shields.io/badge/Pandas-2.0-green?logo=pandas)
@@ -102,7 +102,7 @@ flight-pricing/
 
 ---
 
-## 🚀 Lancer le projet
+## Lancer le projet
 
 ```bash
 # 1. Cloner le repo
@@ -120,10 +120,10 @@ jupyter notebook notebooks/
 
 ---
 
-## 👤 Auteur
+## Auteur
 
-**[Ton Prénom Nom]** — Data Analyst  
-[LinkedIn](https://linkedin.com) · [GitHub](https://github.com)
+**[Apiraami Karuneswaran]** — Data Analyst  
+[LinkedIn](https://www.linkedin.com/in/apiraami-karuneswaran-5699a91b8/) · [GitHub](https://github.com/apiraamikrs/Analyse-pricing-avion)
 
 ---
 
