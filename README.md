@@ -1,14 +1,14 @@
-# Flight Pricing Analysis — Décrypter la stratégie tarifaire aérienne
+# Flight Pricing Analysis : Décrypter la stratégie tarifaire aérienne
 
 > **Pourquoi le même vol Paris → Madrid coûte 54€ un mardi matin et 310€ le vendredi soir ?**  
-> Ce projet analyse les mécanismes du pricing aérien à partir de ~300 000 billets réels pour en extraire des recommandations concrètes — pour les voyageurs comme pour les compagnies.
+> Ce projet analyse les mécanismes du pricing aérien à partir de ~300 000 billets réels pour en extraire des recommandations concrètes pour les voyageurs comme pour les compagnies aériennes.
 
 ---
 
 ## Objectifs
 
 - Identifier les **facteurs clés** qui font varier le prix d'un billet
-- Quantifier l'impact de chaque variable : délai de réservation, escales, compagnie, jour de la semaine
+- Quantifier l'impact de chaque variable : délai de réservation, escales, compagnie, créneau horaire
 - Construire un **modèle prédictif interprétable** (Random Forest)
 - Formuler des **recommandations actionnables** pour voyageurs et yield managers
 
@@ -38,57 +38,63 @@
 ## Structure du projet
 
 ```
-flight-pricing/
+Analyse-pricing-avion/
 │
 ├── README.md
 ├── requirements.txt
+├── streamlit_app.py                    <- Dashboard interactif
 │
-├── notebooks/
-│   ├── 01_eda_exploration.ipynb        ← Exploration & nettoyage
-│   ├── 02_pricing_analysis.ipynb       ← Analyse des facteurs de prix
-│   ├── 03_model_prediction.ipynb       ← Modèle prédictif + feature importance
-│   └── 04_recommendations.ipynb        ← Synthèse & recommandations
-│
-├── data/
-│   └── README.md                       ← Instructions téléchargement dataset
-│
-└── dashboard/
-    └── app.py                          ← Dashboard Streamlit (optionnel)
+├── 01_eda_exploration.ipynb            <- Exploration & nettoyage
+├── 02_pricing_analysis.ipynb          <- Analyse des facteurs de prix
+├── 03_model_prediction.ipynb          <- Modèle prédictif + feature importance
+└── 04_recommendations.ipynb           <- Synthèse & recommandations
 ```
 
 ---
 
 ## Insights clés
 
-> *(à compléter après analyse)*
-
-- **Réserver X jours à l'avance** permet d'économiser en moyenne **XX%**
-- **Les vols avec escale** sont XX% moins chers mais allongent le trajet de Xh en moyenne
-- **Les vols du matin** sont systématiquement moins chers que les vols du soir
-- **Les 3 facteurs les plus prédictifs** du prix : `days_left`, `class`, `stops`
+- **Réserver J-46+ permet d'économiser 57.7%** par rapport au last-minute (J-1 à J-7)
+- **Les vols directs sont 43% moins chers** que les vols avec escale — mais 10h de trajet en moins
+- **La classe Business est le facteur n°1** du prix : elle explique à elle seule 89.7% de la variance
+- **Les vols tôt le matin** sont systématiquement moins chers que les vols du soir
 
 ---
 
 ## Résultats du modèle
 
-| Modèle | R² | RMSE |
-|--------|----|------|
-| Baseline (moyenne) | — | — |
-| Random Forest | — | — |
+| Modèle | R² | RMSE | MAE |
+|--------|----|------|-----|
+| Baseline (médiane) | -0.35 | 26 398 INR | 16 155 INR |
+| Random Forest | **0.9786** | **3 321 INR** | **1 715 INR** |
+
+Le Random Forest explique **97.9% de la variance du prix** — amélioration de 87.4% vs baseline.
+
+---
+
+## Feature Importance — Ce qui explique vraiment le prix
+
+| Rang | Facteur | Importance |
+|------|---------|-----------|
+| 1 | Classe Business | 89.7% |
+| 2 | Durée du vol | 5.2% |
+| 3 | Jours avant le départ | 1.3% |
+| 4 | Compagnie | 1.1% |
+| 5 | Ville de départ | 1.0% |
 
 ---
 
 ## Recommandations
 
 ### Pour les voyageurs
-1. **Réserver entre J-30 et J-45** pour le meilleur rapport qualité/prix
-2. **Éviter les vols du vendredi soir et dimanche soir** (pics tarifaires systématiques)
-3. **Privilégier 1 escale courte** sur les longues distances : économie moyenne de XX%
+1. **Réserver au moins 46 jours à l'avance** — économie moyenne de 57.7% vs last-minute
+2. **Privilégier les vols directs** sur les courts trajets (médiane à 4 499 INR vs 7 959 INR avec escale)
+3. **Choisir un départ tôt le matin** — créneau systématiquement moins cher
 
 ### Pour les compagnies (yield management)
-1. **Augmenter la granularité tarifaire** sur les créneaux J-7 à J-15 (forte élasticité)
-2. **Sous-tarifer les vols early morning** pour améliorer le taux de remplissage
-3. **Revoir le pricing Business** sur les routes secondaires (ratio Business/Economy anormalement bas)
+1. **La classe est le levier n°1** — 89.7% de la variance du prix, à optimiser en priorité
+2. **Affiner la grille tarifaire J-8 à J-21** — forte élasticité, segments non capturés
+3. **Re-pricer les créneaux early morning** — fort volume mais prix sous la moyenne du marché
 
 ---
 
@@ -106,25 +112,30 @@ flight-pricing/
 
 ```bash
 # 1. Cloner le repo
-git clone https://github.com/[ton-username]/flight-pricing.git
-cd flight-pricing
+git clone https://github.com/apiraamikrs/Analyse-pricing-avion.git
+cd Analyse-pricing-avion
 
 # 2. Installer les dépendances
 pip install -r requirements.txt
 
-# 3. Télécharger le dataset (voir data/README.md)
+# 3. Télécharger le dataset sur Kaggle
+# https://www.kaggle.com/datasets/shubhambathwal/flight-price-prediction
+# Placer Clean_Dataset.csv dans le même dossier
 
 # 4. Lancer les notebooks dans l'ordre
-jupyter notebook notebooks/
+jupyter notebook
+
+# 5. Lancer le dashboard
+streamlit run streamlit_app.py
 ```
 
 ---
 
 ## Auteur
 
-**[Apiraami Karuneswaran]** — Data Analyst  
+**Apiraami Karuneswaran** — Data Analyst  
 [LinkedIn](https://www.linkedin.com/in/apiraami-karuneswaran-5699a91b8/) · [GitHub](https://github.com/apiraamikrs/Analyse-pricing-avion)
 
 ---
 
-*Projet réalisé dans le cadre d'un portfolio Data Analyst — Mars 2026*
+*Projet réalisé dans le cadre d'un portfolio Data Analyst — 2026*
